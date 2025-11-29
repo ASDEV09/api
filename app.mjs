@@ -3,8 +3,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.mjs";
-import userRoutes from './routes/userRoutes.mjs'
+import userRoutes from "./routes/userRoutes.mjs";
 import profileRouter from "./routes/profileRoutes.mjs";
+
 dotenv.config();
 
 const app = express();
@@ -18,6 +19,10 @@ mongoose.connect(process.env.MONGO_URI)
 app.use("/profile", profileRouter);
 app.use("/auth", authRoutes);
 app.use("/api/user", userRoutes);
-app.listen(5000, () => {
-  console.log("🚀 Server running on port 5000");
+
+// 🚀 IMPORTANT for Railway deployment
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
